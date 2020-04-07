@@ -2,17 +2,24 @@
 {% load static %}
 
 {% block content %}
+
 <head>
-  <title>Sign In | {{ super }}</title>
+  <title>Sign In</title>
 </head>
 
 <div class="container p-5">
+
   <form method="POST" action="{% url 'users:sign_in' %}">
       {% csrf_token %}
       {{ form.as_p }}
       <input type="submit" value="Sign In">
   </form>
+
   <p>Don't have a account, <a href="{% url 'users:sign_up'%}">click here</a>.</p>
+
 </div>
 
 {% endblock %}
+
+{% block navbar %}
+{% endblock%}

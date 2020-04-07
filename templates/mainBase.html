@@ -1,6 +1,8 @@
 {% load static %}
 <!DOCTYPE html>
+
 <html lang="en" dir="ltr">
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -40,6 +42,12 @@
             <li class="nav-item p-3">
               <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'users:sign_out' %}"><b class="h5">Sign Out</b></a>
             </li>
+          {% else %}
+            {% block navbar %}
+              <li class="nav-item p-3">
+                <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'users:sign_in' %}"><b class="h5">Sign In</b></a>
+              </li>
+            {% endblock %}
           {% endif %}
 
         </ul>

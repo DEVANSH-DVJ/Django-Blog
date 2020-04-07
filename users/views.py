@@ -4,9 +4,9 @@ from django.contrib.auth import (authenticate, login, logout,
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import (AuthenticationForm, UserCreationForm,
                                        PasswordChangeForm)
-from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 
 from .models import Profile
 from .forms import ProfileForm

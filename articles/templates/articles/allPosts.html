@@ -1,4 +1,6 @@
 {% extends "mainBase.html" %}
+{% load static %}
+
 {% block content %}
 
 <head>
@@ -15,9 +17,9 @@
 </form>
 
 {% if user.is_authenticated %}
-<div class="container text-center mb-5">
-  <a class="btn btn-outline-primary my-2 my-sm-0 pt-3" href="{% url 'articles:create_post' %}"><h6>NEW POST <i class="fas fa-plus-square"></i></h6></a>
-</div>
+  <div class="container text-center mb-5">
+    <a class="btn btn-outline-primary my-2 my-sm-0 pt-3" href="{% url 'articles:create_post' %}"><h6>NEW POST <i class="fas fa-plus-square"></i></h6></a>
+  </div>
 {% endif %}
 
 <div class="container">
@@ -28,7 +30,6 @@
           <header>
             <h2 class="card-title text-center"><a class="btn text-primary my-2 my-sm-0" href="{% url 'articles:detailed_post' slug=post.slug %}"><h1>{{post.title}}</h1></a></h2>
           </header>
-
           <div class="h4">
             <p class="card-text">{{post.snippet|safe}}</p>
           </div>
@@ -47,6 +48,7 @@
             {% endif %}
           </div>
         </footer>
+
     </div>
   {% endfor %}
 
@@ -67,5 +69,7 @@
           {% endif %}
       </span>
   </div>
+
 </div>
+
 {% endblock %}

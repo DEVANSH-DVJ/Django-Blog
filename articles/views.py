@@ -1,11 +1,10 @@
-from . import forms
+from .forms import CreatePost
 from .models import Post
-from django.db.models import Q
 from django.contrib import messages
-from django.contrib.auth import logout
-from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from django.db.models import Q
+from django.shortcuts import render, redirect
 
 def all_posts(request):
     allPosts = Post.objects.all()
@@ -35,7 +34,7 @@ def detailed_post(request, slug):
 @login_required() # Decorator which ensures these functions are available only to logged in users.
 def create_post(request):
     if request.method == 'POST':
-        form = forms.CreatePost(request.POST, request.FILES) # FILES for image files.
+        form = CreatePost(request.POST, request.FILES) # FILES for image files.
         if form.is_valid():
             instance = form.save(commit = False) # Instance of the post.
             instance.author = request.user
@@ -43,7 +42,7 @@ def create_post(request):
             messages.success(request, "Successfully created!") # Success message displayed.
             return redirect('articles:all_posts')
     else:
-        form = forms.CreatePost()
+        form = CreatePost()
     return render(request, 'articles/createPost.html', {'form':form})
 
 @login_required()
@@ -51,7 +50,7 @@ def edit_post(request, slug):
     post = Post.objects.get(slug = slug)
     if request.user == post.author:
         if request.method == "POST":
-            form = forms.CreatePost(request.POST, request.FILES, instance=post)
+            form = CreatePost(request.POST, request.FILES, instance=post)
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.author = request.user
@@ -59,7 +58,7 @@ def edit_post(request, slug):
                 messages.success(request, "Edited succesfully!")
                 return redirect('articles:detailed_post',slug=instance.slug)
         else:
-            form = forms.CreatePost(instance=post) # Thus, as instance is passed, the form comes preloaded with previous data.
+            form = CreatePost(instance=post) # Thus, as instance is passed, the form comes preloaded with previous data.
         return render(request, 'articles/editPost.html', {'form': form})
 
 @login_required()
