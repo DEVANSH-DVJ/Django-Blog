@@ -1,0 +1,17 @@
+{% extends 'mainBase.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <title>Sign In | {{ super }}</title>
+</head>
+
+<div class="container p-5">
+  <form method="POST" action="{% url 'users:sign_in' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Sign In">
+  </form>
+</div>
+
+{% endblock %}
