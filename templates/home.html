@@ -11,7 +11,7 @@
   <p>*Add slideshows and pictures here*</p>
 
   {% if not user.is_authenticated %}
-    <h1>Welcome !</h1>
+    <h1>Welcome!</h1>
     <p>Register or login to start the fun!</p>
     <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:sign_in' %}">Sign In</a>
     <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:sign_up' %}">Sign Up</a>
@@ -21,8 +21,26 @@
         {{ user.profile.first_name }}
       {% endif %}
     !</h1>
-    <p>Hi</p>
-    <a href="{% url 'users:profile' %}">My Profile</a>
+
+    <h3>Profile</h3>
+
+    <div>
+        {% if not user.profile.first_name %}
+            <p>You have an empty user profile.</p>
+        {% else %}
+            <div>
+                <p><span>First Name</span>: {{ user.profile.first_name }}</p>
+                <p><span>Last Name</span>: {{ user.profile.last_name }}</p>
+                <p><span>Email</span>: {{ user.profile.email }}</p>
+            </div>
+            <div">
+                <p><span>Bio</span>: {{ user.profile.bio|safe }}</p>
+            </div>
+        {% endif %}
+
+        <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:edit_profile' %}">Edit Profile</a>
+        <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:change_password' %}">Change Password</a>
+    </div>
   {% endif %}
 </div>
 

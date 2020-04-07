@@ -32,19 +32,16 @@
           <li class="nav-item p-3">
             <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'about' %}"><b class="h5">About</b></a>
           </li>
+          <li class="nav-item p-3">
+            <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'articles:all_posts' %}"><b class="h5">Blog</b></a>
+          </li>
 
-          {% if not user.is_authenticated %}
+          {% if user.is_authenticated %}
             <li class="nav-item p-3">
-              <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:sign_up' %}">Sign Up</a>
-            </li>
-            <li class="nav-item p-3">
-              <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:sign_in' %}">Sign In</a>
-            </li>
-          {% else %}
-            <li class="nav-item p-3">
-              <a class="btn btn-outline-primary my-2 my-sm-0" href="{% url 'users:sign_out' %}">Sign Out</a>
+              <a class="btn btn-outline-secondary my-2 my-sm-0" href="{% url 'users:sign_out' %}"><b class="h5">Sign Out</b></a>
             </li>
           {% endif %}
+
         </ul>
       </div>
     </nav>

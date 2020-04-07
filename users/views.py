@@ -52,7 +52,7 @@ def sign_up(request):
                 request,
                 "You're now a user! You've been signed in, too."
             )
-            return HttpResponseRedirect(reverse('home'))  # TODO: go to profile
+            return HttpResponseRedirect(reverse('home'))
     return render(request, 'users/sign_up.html', {'form': form})
 
 
@@ -63,7 +63,7 @@ def sign_out(request):
 
 
 @login_required
-def profile(request):
+def profile(request, usr):
     """Display User Profile"""
     profile = request.user.profile
     return render(request, 'users/profile.html', {
@@ -82,7 +82,7 @@ def edit_profile(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Updated the Profile Successfully!")
-            return HttpResponseRedirect(reverse('users:profile'))
+            return HttpResponseRedirect(reverse('home'))
 
     return render(request, 'users/edit_profile.html', {
         'form': form
@@ -103,8 +103,3 @@ def change_password(request):
     return render(request, 'users/change_password.html', {
         'form': form
     })
-
-# @login_required
-# def article_list(request):
-#     articles = Article.objects.get(author__exact=user.profile).order_by('date');
-#     return render(request, 'users/user_article_list.html', { 'articles': articles })

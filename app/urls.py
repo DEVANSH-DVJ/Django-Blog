@@ -27,7 +27,7 @@ urlpatterns = [
     path('', home_view, name='home'),
     path('about/', about_view, name='about'),
 
-    path('users/', include('users.urls')),
+    path('', include('users.urls')),
     path('articles/', include('articles.urls')),
 ]
 

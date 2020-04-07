@@ -9,23 +9,10 @@ from django.contrib.auth.decorators import login_required
 
 def all_posts(request):
     allPosts = Post.objects.all()
-    # Implementing searchbar.
-    query = request.GET.get("q")
-    if query:
-        allPosts = allPosts.filter(Q(title__icontains=query)|
-                                   Q(body__icontains=query)|
-                                   Q(author__username__icontains=query)|
-                                   Q(author__first_name__icontains=query)|
-                                   Q(author__last_name__icontains=query)).distinct() # Removes duplicate items.
-    # Implementing Paginator.
-    paginator = Paginator(allPosts, 3) # Shows 3 posts per page.
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    return render(request, 'articles/allPosts.html', {'allPosts' : allPosts, 'page_obj': page_obj})
+    if request.user.is_authenticated:
+        # User will see only his posts
+        allPosts = allPosts.filter(Q(author__username__exact=request.user))
 
-def user_posts(request, user_str):
-    allPosts = Post.objects.all()
-    allPosts = allPosts.filter(Q(author__username__exact=user_str))
     # Implementing searchbar.
     query = request.GET.get("q")
     if query:
@@ -34,6 +21,7 @@ def user_posts(request, user_str):
                                    Q(author__username__icontains=query)|
                                    Q(author__first_name__icontains=query)|
                                    Q(author__last_name__icontains=query)).distinct() # Removes duplicate items.
+
     # Implementing Paginator.
     paginator = Paginator(allPosts, 3) # Shows 3 posts per page.
     page_number = request.GET.get('page')
