@@ -1,0 +1,11 @@
+{% extends 'mainBase.html' %}
+{% load static %}
+
+{% block content %}
+<head>
+  <title>Profile | {{ user }} {{ super }}</title>
+</head>
+
+{{ articles }}
+
+{% endblock %}

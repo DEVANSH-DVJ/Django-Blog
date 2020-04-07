@@ -1,0 +1,56 @@
+{% extends 'mainBase.html' %}
+
+{% block content %}
+
+<head>
+  <title>{{ post.title }}</title>
+</head>
+
+<div class="container">
+
+  <div class="jumbotron bg-light">
+    <ul class="text-center list-unstyled">
+      <li><h3 class="display-3">{{ post.title }}</h3></li>
+      {% ifequal post.author user %} <!--Checks whether the current user is the same as the author-->
+      <div>
+        <li class="d-inline-block pl-5 pr-5 pt-2"><a class="h2" href="{% url 'articles:edit_post' slug=post.slug %}"><i class="fas fa-edit"></i></a></li>
+        <li class="d-inline-block pl-5 pr-5 pt-2"><a class="h2" href="{% url 'articles:delete_post' slug=post.slug %}" onclick="return confirm('Are you sure you want to delete this?')"><i class="fas fa-trash-alt"></i></a></li>
+      </div>
+      {% endifequal %}
+    </ul>
+  </div>
+
+  <div>
+
+
+    <div class="bg-light p-3 m-3">
+        <p>{{ post.body|safe }}</p> <!--Filter for rendering text as markdown-->
+    </div>
+
+    <footer class="text-center bg-light p-3 m-3">
+      {% if post.author.first_name %}
+        <h5>Contributed by {{post.author.first_name}} {{post.author.last_name}}</h5>
+      {% else %}
+        <h5>Contributed by {{post.author}}</h5>
+      {% endif %}
+
+      <h5>Published on: {{ post.date }}</h5>
+
+      {% if post.isUpdated %}
+        <h6><em>(Updated on: {{post.updated}})</em></h6>
+      {% endif %}
+
+    </footer>
+  </div>
+
+  <hr>
+
+  <!--FB Plugins-->
+  <!-- <ul class=" text-center list-unstyled m-3 p-3 bg-light">
+    <li><div class="fb-like" data-href="request.build_absolute_uri" data-width="" data-layout="button_count" data-action="like" data-size="large" data-share="true" data-colorscheme="dark"></div></li>
+    <li><div class="fb-comments" data-href="{{request.build_absolute_uri}}" data-width="" data-numposts="5" data-colorscheme="dark"></div></li>
+  </ul> -->
+</div>
+
+
+{% endblock %}

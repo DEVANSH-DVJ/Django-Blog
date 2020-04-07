@@ -11,4 +11,5 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('profile/edit/', edit_profile, name='edit_profile'),
     path('profile/change_password/', change_password, name='change_password'),
+    # path('articles/', article_list, name='user_article_list'),
 ]

@@ -28,6 +28,7 @@ urlpatterns = [
     path('about/', about_view, name='about'),
 
     path('users/', include('users.urls')),
+    path('articles/', include('articles.urls')),
 ]
 
 urlpatterns += staticfiles_urlpatterns() # Serves static files.

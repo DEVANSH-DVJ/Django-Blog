@@ -10,6 +10,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Profile
 from .forms import ProfileForm
+# from articles.models import Article
 
 def sign_in(request):
     form = AuthenticationForm()
@@ -102,3 +103,8 @@ def change_password(request):
     return render(request, 'users/change_password.html', {
         'form': form
     })
+
+# @login_required
+# def article_list(request):
+#     articles = Article.objects.get(author__exact=user.profile).order_by('date');
+#     return render(request, 'users/user_article_list.html', { 'articles': articles })
